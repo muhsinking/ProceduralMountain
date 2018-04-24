@@ -23,19 +23,19 @@ namespace KoboldMountain
 			KeyboardState state = Keyboard.GetState();
 			if (state.IsKeyDown(Keys.Up))
 			{
-				Y -= speed * elapsedTime;
+				Y += speed * elapsedTime;
 			}
 			if (state.IsKeyDown(Keys.Down))
 			{
-				Y += speed * elapsedTime;
+				Y -= speed * elapsedTime;
 			}
 			if (state.IsKeyDown(Keys.Left))
 			{
-				X -= speed * elapsedTime;
+				X += speed * elapsedTime;
 			}
 			if (state.IsKeyDown(Keys.Right))
 			{
-				X += speed * elapsedTime;
+				X -= speed * elapsedTime;
 			}
 			if (state.IsKeyDown(Keys.J))
 			{

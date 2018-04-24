@@ -1,3 +1,4 @@
+using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -22,21 +23,37 @@ namespace KoboldMountain
 
 			tileBrush = new TileBrush(content);
 
+			GenerateMountain();
 			mountainTiles = new MountainTile[altitude,altitude];
+		}
 
-			// center mountain on window
-			float startingXPos = windowDimensions.X - (altitude * 64 / 2);
+		void GenerateMountain()
+		{
+			GenerateSlope();
+			// GenerateCaverns();
+			// GenerateFeatures();
+		}
+
+		/*
+		 * Generates the slope (surface) of the mountain. 
+		 * Start at the leftmost point, tracking the surface as it ascends to the maximum altitude.
+		 * As each slope tile is added, all tiles below it are populated with full dirt tiles.
+		 * At maximum altitude, tiles are horizontally flipped (using the flipped property of MountainTile.
+		 */
+		void GenerateSlope()
+		{
+			float startingXPos = (windowDimensions.X / 2) - (altitude * 64 * Camera.zoom / 2);
 
 			// i is across, j is up
-			for (int i = 0; i < altitude; i++)
+			for (int i = 0; i<altitude; i++)
 			{
-				for (int j = 0; j < altitude; j++)
+				for (int j = 0; j<altitude; j++)
 				{
 					float xPos = startingXPos + (i * 64);
 					float yPos = (int)windowDimensions.Y - 100 - (j * 64); // 100 is arbitraty
+
 					if (j == 0)
 					{
-						// 64 is tile width, 100 is arbitrary height
 						mountainTiles[i, j] = new MountainTile(TileTypes.FLAT, xPos, yPos, false);
 					}
 					else
@@ -49,6 +66,13 @@ namespace KoboldMountain
 
 		public void Update(float elapsedTime)
 		{
+			for (int i = 0; i < altitude; i++)
+			{
+				for (int j = 0; j < altitude; j++)
+				{
+					// Update mountainTiles
+				}
+			}
 		}
 
 		public void Draw(SpriteBatch spritebatch)
