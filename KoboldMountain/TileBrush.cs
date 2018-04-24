@@ -19,27 +19,48 @@ namespace KoboldMountain
 
 		ContentManager content;
 
+
+		/*
+		* Ideally, I should read these files directly from the folder into a table. 
+		* But I'm on an airplane and bored so let's do it the dumb way!
+		*/
 		public TileBrush(ContentManager content)
 		{
+			full = new SpriteClass(content, "mountain-tiles/dirt-full");
 			flat = new SpriteClass(content, "mountain-tiles/flat");
 			fourtyFive = new SpriteClass(content, "mountain-tiles/fourtyfive");
+			twentyTwoLower = new SpriteClass(content, "mountain-tiles/22-lower"); // not sure if numbers work here? had some issues in the past
+			twentyTwoUpper = new SpriteClass(content, "mountain-tiles/22-upper");
+			sixtySeverLower = new SpriteClass(content, "mountain-tiles/67-lower");
+			sixtySeverUpper = new SpriteClass(content, "mountain-tiles/67-upper");
 		}
 
 		public void Draw(SpriteBatch spriteBatch, MountainTile tile)
 		{
-			if (tile.type == TileTypes.FLAT)
-			{
-				flat.X = tile.X;
-				flat.Y = tile.Y;
-				flat.Draw(spriteBatch);
-			}
+			SpriteClass spriteToDraw;
 
-			if (tile.type == TileTypes.FOURTYFIVE)
-			{
-				fourtyFive.X = tile.X;
-				fourtyFive.Y = tile.Y;
-				fourtyFive.Draw(spriteBatch);
-			}
+			// TODO switch to a switch lol
+			// To flip tiles horizontall, ideally I should create a spritesheet of the two versions, and choose which version based on tile.flipped 
+			// It's probably possible to flip the tiles horizontally,
+			// but according to the internet it's less overhead to just bake in the flipped version
+			if (tile.type == TileTypes.FULL) 
+				spriteToDraw = full;
+			else if (tile.type == TileTypes.FLAT) 
+				spriteToDraw = flat;
+			else if (tile.type == TileTypes.FOURTYFIVE) 
+				spriteToDraw = fourtyfive;
+			else if (tile.type = TileTypes.TWENTYTWOLOWER) 
+				spriteToDraw = twentyTwoLower;
+			else if (tile.type = TileTypes.TWENTYTWOUPPER)
+				spriteToDraw = twentyTwoUpper;
+			else if (tile.type = TileTypes.SIXTYSEVERLOWER)
+				spriteToDraw = sixtySeverLower;
+			else if (tile.type = TileTypes.SIXTYSEVERUPPER)
+				spriteToDraw = sixtySeverUpper;
+
+			spriteToDraw.X = tile.X;
+			spriteToDraw.Y = tile.Y;
+			spriteToDraw.Draw(spriteBatch);
 		}
 	}
 }

@@ -33,7 +33,6 @@ namespace KoboldMountain
 		protected override void LoadContent()
 		{
 			spriteBatch = new SpriteBatch(GraphicsDevice);
-
 			//params: altitude = 20
 			mountain = new ProceduralMountain(this.Content, GraphicsDevice, new Vector2(windowWidth,windowHeight), 20);
 		}
