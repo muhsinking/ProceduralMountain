@@ -12,7 +12,7 @@ namespace KoboldMountain
 		public float Y { get; set; }
 		public float dX { get; set; }
 		public float dY { get; set; }
-		public float dA { get; set; }
+		public float dA { get; set; } // angular velocity
 		public float angle { get; set; }
 		public float scale { get; set; }
 
@@ -86,16 +86,16 @@ namespace KoboldMountain
 			spriteBatch.Draw(texture, spritePosition, null, Color.White, angle, new Vector2(texture.Width / 2, texture.Height / 2), new Vector2(Camera.zoom * scale, Camera.zoom * scale), SpriteEffects.None, 0f);
 		}
 
+		public void DrawHighlighted(SpriteBatch spriteBatch)
+		{
+			Vector2 spritePosition = new Vector2((X + Camera.X) * Camera.zoom, (Y + Camera.Y) * Camera.zoom);
+			spriteBatch.Draw(texture, spritePosition, null, Color.DeepSkyBlue, angle, new Vector2(texture.Width / 2, texture.Height / 2), new Vector2(Camera.zoom * scale, Camera.zoom * scale), SpriteEffects.None, 0f);
+		}
+
 		// public void DrawFlippedHorizontal(SpriteBatch spriteBatch)
 		// {
 		// 	Vector2 spritePosition = new Vector2(X + Camera.X, Y + Camera.Y);
 		// 	spriteBatch.Draw(texture, spritePosition, null, Color.White, angle, new Vector2(texture.Width / 2, texture.Height / 2), new Vector2(Camera.zoom * scale, Camera.zoom * scale), SpriteEffects.None, 0f);
-		// }
-
-		// public void DrawHighlighted(SpriteBatch spriteBatch)
-		// {
-		// 	Vector2 spritePosition = new Vector2(X + Camera.X, Y + Camera.Y);
-		// 	spriteBatch.Draw(texture, spritePosition, null, Color.DeepSkyBlue, angle, new Vector2(texture.Width / 2, texture.Height / 2), new Vector2(scale, scale), SpriteEffects.None, 0f);
 		// }
 	}
 }

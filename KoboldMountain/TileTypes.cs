@@ -1,6 +1,9 @@
 ﻿using System;
 namespace KoboldMountain
 {
+	/*
+	* Stores the ID of each tile type.
+	*/
 	public static class TileTypes
 	{
 		public const int EMPTY = 0;
