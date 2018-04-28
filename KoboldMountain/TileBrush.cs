@@ -14,7 +14,7 @@ namespace KoboldMountain
 		SpriteClass twentyTwoLower;
 		SpriteClass twentyTwoUpper;
 		SpriteClass sixtySevenLower;
-		SpriteClass sixtySeverUpper;
+		SpriteClass sixtySevenUpper;
 		SpriteClass ninety;
 		ContentManager content;
 
@@ -31,30 +31,40 @@ namespace KoboldMountain
 			twentyTwoUpper = new SpriteClass(content, "mountain-tiles/22-upper");
 			sixtySevenLower = new SpriteClass(content, "mountain-tiles/67-lower");
 			sixtySevenUpper = new SpriteClass(content, "mountain-tiles/67-upper");
+			ninety = new SpriteClass(content, "mountain-tiles/90");
 		}
 
 		public void Draw(SpriteBatch spriteBatch, MountainTile tile)
 		{
-			SpriteClass spriteToDraw;
-		
-			// TODO switch to a switch lol
-			// To flip tiles horizontall, ideally I should create a spritesheet of the two versions, and choose which version based on tile.flipped 
-			// It's probably possible to flip the tiles horizontally,
-			// but according to the internet it's less overhead to just bake in the flipped version
-			if (tile.type == TileTypes.FULL)
-				spriteToDraw = full;
-			else if (tile.type == TileTypes.FLAT) 
-				spriteToDraw = flat;
-			else if (tile.type == TileTypes.FOURTYFIVE) 
-				spriteToDraw = fourtyfive;
-			else if (tile.type == TileTypes.TWENTYTWOLOWER) 
-				spriteToDraw = twentyTwoLower;
-			else if (tile.type == TileTypes.TWENTYTWOUPPER)
-				spriteToDraw = twentyTwoUpper;
-			else if (tile.type == TileTypes.SIXTYSEVENLOWER)
-				spriteToDraw = sixtySevenLower;
-			else if (tile.type == TileTypes.SIXTYSEVENUPPER)
-				spriteToDraw = sixtySevenUpper;
+			if (tile.type == TileTypes.EMPTY) return;
+			SpriteClass spriteToDraw = full;
+			switch (tile.type)
+			{
+				case TileTypes.FULL:
+					spriteToDraw = full;
+					break;
+				case TileTypes.FLAT:
+					spriteToDraw = flat;
+					break;
+				case TileTypes.FOURTYFIVE:
+					spriteToDraw = fourtyFive;
+					break;
+				case TileTypes.TWENTYTWOLOWER:
+					spriteToDraw = twentyTwoLower;
+					break;
+				case TileTypes.TWENTYTWOUPPER:
+					spriteToDraw = twentyTwoUpper;
+					break;
+				case TileTypes.SIXTYSEVENLOWER:
+					spriteToDraw = sixtySevenLower;
+					break;
+				case TileTypes.SIXTYSEVENUPPER:
+					spriteToDraw = sixtySevenUpper;
+					break;
+				case TileTypes.NINETY:
+					spriteToDraw = ninety;
+					break;
+			}
 
 			spriteToDraw.X = tile.X;
 			spriteToDraw.Y = tile.Y;

@@ -29,8 +29,8 @@ namespace KoboldMountain
 			this.graphicsDevice = graphicsDevice;
 			this.windowDimensions = windowDimensions;
 			this.altitude = altitude;
-			this tileBrush = new TileBrush(content);
-			this mountainTiles = new MountainTile[altitude,altitude];
+			this.tileBrush = new TileBrush(content);
+			this.mountainTiles = new MountainTile[altitude,altitude];
 
 			GenerateMountain();
 		}
@@ -76,14 +76,14 @@ namespace KoboldMountain
 
 			// generate upward slope (pre-peak)
 			// TODO: tbh you could definitely combine this into one loop with the downward slope
-			while(currentAltitude < altitude && currentX < altitude){
+			while(currentAltitude < (altitude/3) && currentX < altitude){
 
 				// fill in all squares below the current with full dirt tiles
 				for(int i = currentAltitude-1; i >= 0; i--){
 					mountainTiles[currentX, i].type = TileTypes.FULL;
 				}
 
-				zeroToFour = ? (sequenceNumber >= 0) sequenceNumber : 2; // make random lol
+				zeroToFour = (sequenceNumber >= 0) ? sequenceNumber : 2; // make random lol
 
 				switch (zeroToFour){
 					case 0: // flat slope. Y does not change, obvs
@@ -135,7 +135,7 @@ namespace KoboldMountain
 					mountainTiles[currentX, i].type = TileTypes.FULL;
 				}
 
-				zeroToFour = ? (sequenceNumber >= 0) sequenceNumber : 2; // make it random instead of just 2
+				zeroToFour = (sequenceNumber >= 0) ? sequenceNumber : 2; // make it random instead of just 2
 
 				// REMEMBER you gotta do upper slopes first on the way down!
 				switch (zeroToFour){
@@ -146,21 +146,22 @@ namespace KoboldMountain
 					case 1: // 22 degree slope sequence
 						if (sequenceNumber < 0){
 							mountainTiles[currentX, currentAltitude].type = TileTypes.TWENTYTWOUPPER;
+							mountainTiles[currentX, currentAltitude].flipped = true;
 							sequenceNumber = 1;
 						}
 						else{
 							mountainTiles[currentX, currentAltitude].type = TileTypes.TWENTYTWOLOWER;
+							mountainTiles[currentX, currentAltitude].flipped = true;
 							sequenceNumber = -1;
 							currentAltitude --; // altitude only changes after sequence is complete
 						}
 						currentX ++;
-						mountainTiles[currentX, currentAltitude].flipped = true;
 						break;
 					case 2: // 45 degree slope
 						mountainTiles[currentX, currentAltitude].type = TileTypes.FOURTYFIVE;
+						mountainTiles[currentX, currentAltitude].flipped = true;
 						currentX++;
 						currentAltitude--;
-						mountainTiles[currentX, currentAltitude].flipped = true;
 						break;
 					case 3: // 67 degree slope sequence
 						if (sequenceNumber < 0){
@@ -169,16 +170,16 @@ namespace KoboldMountain
 						}
 						else{
 							mountainTiles[currentX, currentAltitude].type = TileTypes.SIXTYSEVENUPPER;
+							mountainTiles[currentX, currentAltitude].flipped = true;
 							sequenceNumber = -1;
 							currentX ++; // X only changes after sequence is complete
 						}
 						currentAltitude --;
-						mountainTiles[currentX, currentAltitude].flipped = true;
 						break;
 					case 4: // 90 degree slope. X does not change!
 						mountainTiles[currentX, currentAltitude].type = TileTypes.NINETY;
-						currentAltitude --;
 						mountainTiles[currentX, currentAltitude].flipped = true;
+						currentAltitude --;
 						break;
 				}
 			}
